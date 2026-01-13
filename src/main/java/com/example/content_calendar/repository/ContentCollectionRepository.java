@@ -18,7 +18,6 @@ public class ContentCollectionRepository {
   private final List<Content> contentList = new ArrayList<>();
 
   public ContentCollectionRepository() {
-
   }
 
   public List<Content> findAll() {
@@ -30,7 +29,11 @@ public class ContentCollectionRepository {
   }
 
   public void save(Content content){
+    contentList.add(content);
+  }
 
+  public void delete(Integer id) {
+    contentList.removeIf(c -> c.id().equals(id));
   }
 
   @PostConstruct
@@ -39,4 +42,7 @@ public class ContentCollectionRepository {
     contentList.add(content);
   }
 
+  public boolean existsById(Integer id) {
+    return contentList.stream().filter(c -> c.id().equals(id)).count() == 1;
+  }
 }
